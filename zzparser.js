@@ -1,4 +1,4 @@
-﻿var EasySax = EasySax || require("../easysax");
+﻿var EasySax = EasySax || require("easysax");
 
 var feedParser = new function() {
 	'use strict';

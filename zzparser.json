@@ -1,4 +1,6 @@
 {
+	"repo": "zzparser",
+
 	"modules" : {
 		"easysax": "github:~/vflash/easysax"
 	},
