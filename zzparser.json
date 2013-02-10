@@ -2,7 +2,7 @@
 	"repo": "zzparser",
 
 	"modules" : {
-		"easysax": "github:~/vflash/easysax"
+		"EasySax": "github:~/vflash/easysax"
 	},
 
 	"scripts": [
