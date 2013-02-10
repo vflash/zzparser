@@ -1,6 +1,6 @@
 ﻿var EasySax = EasySax || require("easysax");
 
-var feedParser = new function() {
+var zzParser = new function() {
 	'use strict';
 
 	var parser = new EasySax();
@@ -373,5 +373,5 @@ var feedParser = new function() {
 // ------------------------------------------------------
 
 if (typeof exports === 'object' && this == exports) {
-	module.exports = feedParser;
+	module.exports = zzParser;
 };
