@@ -1,0 +1,10 @@
+{
+	"modules" : {
+		"easysax": "github:~/vflash/easysax"
+	},
+
+	"scripts": [
+		"./zzparser.js"
+	]
+}
+
