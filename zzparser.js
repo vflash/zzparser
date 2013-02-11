@@ -1,4 +1,4 @@
-﻿var EasySax = EasySax || require("easysax");
+﻿var EasySax = EasySax || require("../easysax");
 
 var zzParser = new function() {
 	'use strict';
@@ -20,6 +20,12 @@ var zzParser = new function() {
 	, items
 	, feed
 	;
+
+	var rg_trim = /^[\s|\xA0]+|[\s|\xA0]+$/g
+	var trim = ('').trim ? function(s) {return String(s).trim()} 
+		: function(s) {return String(s).replace(rg_trim, '')}
+	; 
+
 
 	parser.ns('rss', {  // поумолчанию предпологаем что это rss
 		//'http://search.yahoo.com/mrss/': 'media',
@@ -68,6 +74,7 @@ var zzParser = new function() {
 
 		return _feed;
 	};
+
 
 
 
@@ -159,7 +166,7 @@ var zzParser = new function() {
 				if (elem === 'atom:link' && attr().type == 'text/html') {
 					v = attr();
 					if (v.type === 'text/html' || (!v.type && !feed.link) ) {
-						feed.link = String(v.href).trim();
+						feed.link = trim(v.href);
 					};
 
 					context = null;
@@ -185,7 +192,7 @@ var zzParser = new function() {
 				if (elem === 'atom:link') {
 					v = attr();
 					if (v.type === 'text/html' || (!v.type && !item.link)) {
-						item.link = String(v.href).trim();
+						item.link = trim(v.href);
 					};
 
 					context = null;
@@ -292,7 +299,7 @@ var zzParser = new function() {
 				break;
 
 			case unids.rootTitle:
-				feed.title = String(text).trim();
+				feed.title = trim(text);
 				text = '';
 				break;
 
@@ -321,13 +328,13 @@ var zzParser = new function() {
 				break;
 
 			case unids.itemTitle:
-				item.title = String(text).trim();
+				item.title = trim(text);
 				text = '';
 				break;
 
 
 			case unids.itemDescriptionXHTML:
-				item.desc = String(xhtml).trim();
+				item.desc = trim(xhtml);
 				xhtml = '';
 				break;
 
@@ -335,13 +342,13 @@ var zzParser = new function() {
 			
 			case unids.itemDescription:
 				//item.desc = text.substring(0, 70);
-				item.desc = String(text).trim();
+				item.desc = trim(text);
 				text = '';
 				break;
 
 			case unids.itemSummaryText:
 				if (!item.desc) {
-					item.desc = String(text).trim().replace(/[&<>]/g, html_entities);
+					item.desc = trim(text).replace(/[&<>]/g, html_entities);
 				};
 
 				text = '';
@@ -349,7 +356,7 @@ var zzParser = new function() {
 
 			case unids.itemContentEncoded:
 			case unids.itemYandexFullText: // yandex бля
-				item.content = String(text).trim();
+				item.content = trim(text);
 				text = '';
 				break;
 
@@ -362,7 +369,7 @@ var zzParser = new function() {
 				break;
 
 			case unids.itemID:
-				item.guid = String(text).trim();
+				item.guid = trim(text);
 				text = '';
 				break;
 		};
