@@ -22,8 +22,8 @@ var zzParser = new function() {
 	;
 
 	var rg_trim = /^[\s|\xA0]+|[\s|\xA0]+$/g
-	var trim = ('').trim ? function(s) {return String(s).trim()} 
-		: function(s) {return String(s).replace(rg_trim, '')}
+	var trim = ('').trim ? function(s) {return (s+'').trim()} 
+		: function(s) {return (s+'').replace(rg_trim, '')}
 	; 
 
 
