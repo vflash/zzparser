@@ -37,6 +37,7 @@ var zzParser = new function() {
 		'http://purl.org/dc/elements/1.1/': 'dc',
 		'http://www.w3.org/1999/02/22-rdf-syntax-ns#' : 'rdf',
 		'http://purl.org/rss/1.0/modules/content/': 'content',
+		'http://www.yandex.ru': 'yandex',
 		'http://backend.userland.com/rss2': 'rss'
 		
 	});
@@ -107,7 +108,7 @@ var zzParser = new function() {
 	};
 
 	function onStartNode(elem, attr, uq, tagend, get_str){
-		var unid = unidnext++, v;
+		var u, unid = unidnext++, v;
 		//var attrs = attr();  // --all
 
 		unidstack.push(unid);
@@ -265,6 +266,28 @@ var zzParser = new function() {
 					return;
 				};
 
+				if (elem === 'rss:enclosure') {
+					context = null;
+
+					var v = attr();
+					if (!v.url) return;
+
+					switch(v.type) {
+						case 'image/jpeg': case 'image/png': case 'image/gif': 
+							if (!item.imgs) item.imgs = [];
+
+							item.imgs.push({src: v.url
+								, size: +v.length || u
+								, width: +v.width || u
+								, height: +v.height || u
+							});
+
+							break;
+					};
+
+					return
+				};
+
 				break;
 		};
 		
@@ -303,6 +326,10 @@ var zzParser = new function() {
 				text = '';
 				break;
 
+			case unids.rootLink:
+				feed.link = String(text).trim();
+				text = '';
+				break;
 
 			case unids.item:
 				if (!item.link && isPermaLink && item.guid) {
@@ -355,8 +382,15 @@ var zzParser = new function() {
 				break;
 
 			case unids.itemContentEncoded:
-			case unids.itemYandexFullText: // yandex бля
 				item.content = trim(text);
+				text = '';
+				break;
+
+			case unids.itemYandexFullText: // yandex бля
+				if (!item.content) {
+					//item.content = '<p>' + trim(text).replace(/([\f\t\v]*\r?\n){2,}[\f\t\v]*/g, '</p></p>').replace(/([\f\t\v]*\r?\n)+[\f\t\v]*/g, '<br/>') + '</p>';
+					item.content = '<div class="zzYandexFullText" style="white-space:pre-wrap;">' + text.replace(/^([\f\t\v\r ]*\n)*|\s*$/g, '') + '</div>';
+				};
 				text = '';
 				break;
 
