@@ -399,7 +399,7 @@ var zzParser = new function() {
 				text = '';
 
 				//item.utime = Math.floor(x != x ? +new Date()/1000 : x/1000);
-				item.utime = x != x ? null : Math.floor(x/1000);
+				item.utime = x != x ? null : Math.floor(x);
 				break;
 
 			case unids.itemID:
