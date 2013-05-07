@@ -389,7 +389,8 @@ var zzParser = new function() {
 			case unids.itemYandexFullText: // yandex бля
 				if (!item.content) {
 					//item.content = '<p>' + trim(text).replace(/([\f\t\v]*\r?\n){2,}[\f\t\v]*/g, '</p></p>').replace(/([\f\t\v]*\r?\n)+[\f\t\v]*/g, '<br/>') + '</p>';
-					item.content = '<div class="zzYandexFullText" style="white-space:pre-wrap;">' + text.replace(/^([\f\t\v\r ]*\n)*|\s*$/g, '') + '</div>';
+					//item.content = '<div class="zzYandexFullText" style="white-space:pre-wrap;">' + text.replace(/^([\f\t\v\r ]*\n)*|\s*$/g, '') + '</div>';
+					item.content = '<div class="zzYandexFullText" style="white-space:pre-wrap;">' + text.replace(/^([\f\t\v\r ]*\n)*/, '').replace(/\s*$/, '') + '</div>';
 				};
 				text = '';
 				break;
