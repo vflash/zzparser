@@ -38,6 +38,7 @@ var zzParser = new function() {
 		'http://www.w3.org/1999/02/22-rdf-syntax-ns#' : 'rdf',
 		'http://purl.org/rss/1.0/modules/content/': 'content',
 		'http://www.yandex.ru': 'yandex',
+		'http://news.yandex.ru': 'yandex',
 		'http://backend.userland.com/rss2': 'rss'
 		
 	});
