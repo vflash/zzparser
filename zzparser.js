@@ -135,10 +135,9 @@ var zzParser = new function() {
 
 					unids.root = unid;
 					context = 'root';
-					return;
 				};
 
-				break;
+				return;
 
 			case 'root':
 				if (elem === 'rss:channel') {
