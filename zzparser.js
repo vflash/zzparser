@@ -208,7 +208,7 @@ var zzParser = new function() {
 				};
 
 
-				if (elem === 'rss:description' || (elem === 'atom:content' || elem === 'atom:summary') && attr().type == 'html') {
+				if (elem === 'rss:description' || (elem === 'atom:content' || elem === 'atom:summary') && (attr().type === 'html' || attr().type === 'text/html') ) {
 					context = 'TEXT';	
 					unids.itemDescription = unid;
 					return
