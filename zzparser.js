@@ -245,11 +245,10 @@ var zzParser = new function() {
 					return;
 				};
 
-				if (elem === 'rss:pubDate' || elem === 'dc:date') {
+				if (elem === 'rss:pubDate' || elem === 'rss:pubdate' || elem === 'dc:date') {
 					unids.itemPublished = unid;
 					context = 'TEXT';
 					return;
-					
 				};
 
 				if (elem === 'atom:id') {
@@ -396,11 +395,12 @@ var zzParser = new function() {
 				break;
 
 			case unids.itemPublished:
-				x = +new Date(text)/1000;
-				text = '';
+				if (item.utime == null) {
+					x = +new Date(text)/1000;
+					item.utime = x != x ? null : Math.floor(x);
+				};
 
-				//item.utime = Math.floor(x != x ? +new Date()/1000 : x/1000);
-				item.utime = x != x ? null : Math.floor(x);
+				text = '';
 				break;
 
 			case unids.itemID:
