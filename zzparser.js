@@ -28,11 +28,10 @@ var zzParser = new function() {
 
 
 	parser.ns('rss', {  // поумолчанию предпологаем что это rss
-		//'http://search.yahoo.com/mrss/': 'media',
-
 		'http://www.w3.org/2005/Atom': 'atom',
 		'http://www.w3.org/1999/xhtml': 'xhtml',
 
+		'http://search.yahoo.com/mrss/': 'media',
 		'http://purl.org/rss/1.0/': 'rss',
 		'http://purl.org/dc/elements/1.1/': 'dc',
 		'http://www.w3.org/1999/02/22-rdf-syntax-ns#' : 'rdf',
@@ -265,7 +264,7 @@ var zzParser = new function() {
 					return;
 				};
 
-				if (elem === 'rss:enclosure') {
+				if (elem === 'rss:enclosure' || elem === 'media:content') {
 					context = null;
 
 					var v = attr();
