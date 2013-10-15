@@ -281,6 +281,11 @@ var zzParser = new function() {
 							});
 
 							break;
+						
+						case 'audio/mpeg':
+							if (!item.audio) item.audio = [];
+							item.audio.push({src: v.url, type: v.type, size: +v.length || u});
+							break;
 					};
 
 					return
