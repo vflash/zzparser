@@ -2,7 +2,7 @@
 	"name" : "zzparser",
 	"description": "xml parser RSS and Atom",
 	"keywords": ["rss", "atom", "parser", "xml"],
-	"version": "0.1.8",
+	"version": "0.1.9",
 	"main" : "./zzparser.js",
 
 	"bugs": {
