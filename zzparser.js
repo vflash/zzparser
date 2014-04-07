@@ -353,7 +353,7 @@ var zzParser = new function() {
 				break;
 
 			case unids.itemLink:
-				item.link = text;
+				item.link = trim(text);
 				text = '';
 				break;
 
