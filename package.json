@@ -2,7 +2,7 @@
 	"name" : "zzparser",
 	"description": "xml parser RSS and Atom",
 	"keywords": ["rss", "atom", "parser", "xml"],
-	"version": "0.1.10",
+	"version": "0.1.11",
 	"main" : "./zzparser.js",
 
 	"bugs": {
@@ -17,7 +17,7 @@
 
 	"dependencies": ["easysax"],
 
-	"files":["zzparser.js", "LICENSE", "README.md", "zzparser.json"],
+	"files":["LICENSE", "README.md", "zzparser.json", "zzparser.js"],
 
 	"repository": {
 		"type": "git",
