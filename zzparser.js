@@ -1,9 +1,10 @@
-﻿var EasySax = EasySax || require("easysax");
+﻿var EasySax = EasySax || require("./easysax.2x.js");
+var entityDecode = EasySax.entityDecode;
 
 var zzParser = new function() {
 	'use strict';
 
-	var parser = new EasySax();
+	var parser = new EasySax({autoEntity: true});
 
 	var u
 	, unids = {}
@@ -15,16 +16,16 @@ var zzParser = new function() {
 	, unidnext // = 0
 
 	, text
-	, xhtml 
+	, xhtml
 	, item
 	, items
 	, feed
 	;
 
 	var rg_trim = /^[\s|\xA0]+|[\s|\xA0]+$/g
-	var trim = ('').trim ? function(s) {return (s+'').trim()} 
+	var trim = ('').trim ? function(s) {return (s+'').trim()}
 		: function(s) {return (s+'').replace(rg_trim, '')}
-	; 
+	;
 
 
 	parser.ns('rss', {  // поумолчанию предпологаем что это rss
@@ -39,7 +40,7 @@ var zzParser = new function() {
 		'http://www.yandex.ru': 'yandex',
 		'http://news.yandex.ru': 'yandex',
 		'http://backend.userland.com/rss2': 'rss'
-		
+
 	});
 
 	parser.on('error', onError);
@@ -64,7 +65,7 @@ var zzParser = new function() {
 		items = [];
 		item = {};
 		feed = {items: items};
-		
+
 
 		unids = {};
 		cnxStack = [];
@@ -83,10 +84,10 @@ var zzParser = new function() {
 		//console.log('errro: ' + msg);
 	};
 
-	function onTextNode(x, uq) {
+	function onTextNode(x) {
 		switch(context) {
 			case 'TEXT':
-				text += uq(x);
+				text += x;
 				break;
 
 			case 'XHTML':
@@ -107,7 +108,7 @@ var zzParser = new function() {
 		};
 	};
 
-	function onStartNode(elem, attr, uq, tagend, get_str){
+	function onStartNode(elem, attr, tagend, get_str){
 		var u, unid = unidnext++, v;
 		//var attrs = attr();  // --all
 
@@ -202,18 +203,18 @@ var zzParser = new function() {
 
 				if (elem === 'atom:content' && attr().type == 'xhtml') {
 					unids.itemDescriptionXHTML = unid;
-					context = 'XHTML';	
+					context = 'XHTML';
 					return;
 				};
 
 
 				if (elem === 'rss:description' || (elem === 'atom:content' || elem === 'atom:summary') && (attr().type === 'html' || attr().type === 'text/html') ) {
-					context = 'TEXT';	
+					context = 'TEXT';
 					unids.itemDescription = unid;
 					return
 				};
 
-				if (elem === 'content:encoded') { 
+				if (elem === 'content:encoded') {
 					unids.itemContentEncoded = unid;
 					context = 'TEXT';
 					return;
@@ -224,14 +225,14 @@ var zzParser = new function() {
 					context = 'TEXT';
 					return;
 				};
-				
+
 
 				if (elem === 'atom:summary') {
 					if (attr().type === 'text' || !attr().type) {
 						unids.itemSummaryText = unid;
-						context = 'TEXT';	
+						context = 'TEXT';
 					} else {
-						context = null;	
+						context = null;
 					};
 
 					return;
@@ -271,7 +272,7 @@ var zzParser = new function() {
 					if (!v.url) return;
 
 					switch(v.type) {
-						case 'image/jpeg': case 'image/png': case 'image/gif': 
+						case 'image/jpeg': case 'image/png': case 'image/gif':
 							if (!item.imgs) item.imgs = [];
 
 							item.imgs.push({src: v.url
@@ -281,7 +282,7 @@ var zzParser = new function() {
 							});
 
 							break;
-						
+
 						case 'audio/mpeg':
 							if (!item.audio) item.audio = [];
 							item.audio.push({src: v.url, type: v.type, size: +v.length || u});
@@ -293,7 +294,7 @@ var zzParser = new function() {
 
 				break;
 		};
-		
+
 
 		context = null;
 	};
@@ -302,7 +303,7 @@ var zzParser = new function() {
 		return a === '&' ? '&quot;' : a === '<' ? '&lt;' : '&gt;';
 	};
 
-	function onEndNode(elem, uq, tagstart, get_str){
+	function onEndNode(elem, tagstart, get_str){
 
 		var unid = unidstack.pop(unid), x;
 		context = cnxStack.pop(context);
@@ -369,7 +370,7 @@ var zzParser = new function() {
 				break;
 
 
-			
+
 			case unids.itemDescription:
 				//item.desc = text.substring(0, 70);
 				item.desc = trim(text);

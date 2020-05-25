@@ -1,28 +1,33 @@
 {
-	"name" : "zzparser",
+	"name": "zzparser",
 	"description": "xml parser RSS and Atom",
-	"keywords": ["rss", "atom", "parser", "xml"],
-	"version": "0.1.11",
-	"main" : "./zzparser.js",
-
+	"keywords": [
+		"rss",
+		"atom",
+		"parser",
+		"xml"
+	],
+	"version": "0.1.2",
+	"main": "./zzparser.js",
 	"bugs": {
 		"url": "https://github.com/vflash/zzparser/issues"
 	},
-
-	"author":{ 
-		"name" : "Vopilovsky Konstantin",
-		"email" : "flash.vkv@gmail.com",
-		"url" : "http://vflash.ru"
+	"author": {
+		"name": "Vopilovsky Konstantin",
+		"email": "flash.vkv@gmail.com"
 	},
-
-	"dependencies": ["easysax"],
-
-	"files":["LICENSE", "README.md", "zzparser.json", "zzparser.js"],
-
+	"dependencies": [
+		"easysax"
+	],
+	"files": [
+		"LICENSE",
+		"README.md",
+		"easysax.2x.js",
+		"zzparser.json",
+		"zzparser.js"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/vflash/zzparser"
 	}
-
 }
-
